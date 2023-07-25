@@ -4,19 +4,19 @@ import 'package:gnexus/widgets/custom/custom_button.dart';
 import '../../services/routes/routes_name.dart';
 import '../../widgets/custom/custom_textfield.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(),
+      // appBar: AppBar(),
 
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
@@ -25,7 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
+                    SizedBox(height: 80,),
               SizedBox(
                   width: 266,
                   child: Text(

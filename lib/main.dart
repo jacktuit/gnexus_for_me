@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'package:gnexus/services/language/lang_json.dart';
 import 'package:gnexus/services/routes/app_routes.dart';
+import 'package:gnexus/utils/utils_variable/variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -20,13 +23,33 @@ void main() async{
       fallbackLocale: const Locale('uz'),
 
       child: const MyApp(),
-    ),);
+    ),
+
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    getLoginIn();
+    super.initState();
+  }
+
+
+  void getLoginIn()async{
+
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    UtilsVariables.loginUser = prefs.getBool('loginUser')!;
+
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,7 +60,7 @@ class MyApp extends StatelessWidget {
       title: 'Gnexus',
       theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home:  MainNavigator(),

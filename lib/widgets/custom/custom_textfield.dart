@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget {
  final String? hintText;
-  const CustomTextField({Key? key, this.hintText}) : super(key: key);
+ final TextEditingController? textController;
+  const CustomTextField({Key? key, this.hintText, this.textController}) : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -12,12 +13,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return               Material(
       color: Colors.white,
-      elevation: 3.0,
+      elevation: 8.0,
       borderRadius: BorderRadius.circular(12),
-      shadowColor: Colors.grey,
+      shadowColor:  Color(0x8000000d),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         child: TextFormField(
+          controller:widget.textController ,
+          validator:(value) {
+            if (value == null || value.isEmpty) {
+              return 'Please fill the fields';
+            }
+            return null;
+          } ,
           autofocus: false,
           decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
