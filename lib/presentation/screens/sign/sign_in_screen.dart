@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   ProfileModel? profileModelInfo;
-  bool loginUser = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,9 +111,11 @@ class _LoginScreenState extends State<LoginScreen> {
     final response = await LoginRepository.getInstance().login(email, password);
     profileModelInfo = response;
     if (StatusCode.successStatusCode == 200) {
-      loginUser=true;
+
       UtilsVariables.userName=profileModelInfo!.firstName!;
-      await prefs.setBool('loginUser', loginUser);
+      print("____");
+      print(profileModelInfo?.tokens?.access);
+      await prefs.setString('accessToken', (profileModelInfo?.tokens?.access).toString());
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.pushReplacement(
           context,

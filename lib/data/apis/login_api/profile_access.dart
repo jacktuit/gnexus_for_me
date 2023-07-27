@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:gnexus/data/models/login_model/profile_access_model.dart';
 import 'package:http/http.dart' as http;
 import '../../../utils/status_code/status_code.dart';
+import '../../../utils/utils_variable/variables.dart';
 
 class ProfileAccessRepository {
   static final ProfileAccessRepository _singleton =
@@ -19,7 +20,7 @@ class ProfileAccessRepository {
       final response = await http.get(
         requestUrl,
         headers: {
-          'Authorization':'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNDU2NDQzLCJpYXQiOjE2OTA0MzQ4NDMsImp0aSI6ImI4Y2QyZmI3NTU0ZDQ0MTBhZDc2ODJkMWZhNzgwYTNlIiwidXNlcl9pZCI6ImI5MmViMzY3LTAyYTktNDJhMS04MjRjLTRmNjA3OGFhMmUwNSJ9.uEgE9o4pUldZxA4NyVAZbOZKLW_k6w3tzw7H8vfA0GY'
+          'Authorization':'Bearer ${UtilsVariables.accessToken}'
         },
 
       );

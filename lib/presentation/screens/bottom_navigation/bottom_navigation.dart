@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../connection_screen/connection_screen.dart';
 import '../family_tree_screen/family_tee.dart';
 import '../gnex_cloud_screen/gnex_cloud_screen.dart';
 class MainPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class _MainPageState extends State<MainPage> {
     {'pageName': FamilyTree(), 'title': 'Gnexus Cloud'},
     {'pageName': GnexCloudScreen(), 'title': 'Gallery'},
     {'pageName': FamilyTree(), 'title': 'Image Editingd'},
+    {'pageName': ConnectionScreen(), 'title': 'Connection'},
 
   ];
 
@@ -52,7 +54,10 @@ class _MainPageState extends State<MainPage> {
 
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/editing.png')),
-                label: "Image Editing")
+                label: "Image Editing"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_add_alt),
+                label: "Connection")
           ],
         ),
       ),

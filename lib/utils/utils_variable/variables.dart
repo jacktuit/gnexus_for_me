@@ -1,4 +1,4 @@
   class UtilsVariables{
-  static bool loginUser =false;
+  static String accessToken ='';
   static String userName='';
 }

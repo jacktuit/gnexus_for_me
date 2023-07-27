@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
 
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    UtilsVariables.loginUser = prefs.getBool('loginUser')!;
+    UtilsVariables.accessToken = prefs.getString('accessToken')!;
 
   }
   @override

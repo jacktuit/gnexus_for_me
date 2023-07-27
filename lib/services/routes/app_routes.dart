@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gnexus/services/routes/routes_name.dart';
 import '../../presentation/screens/bottom_navigation/bottom_navigation.dart';
 import '../../presentation/screens/forgot_password_screen/forgot_password_screen.dart';
-import '../../presentation/screens/login_screen/login_screen.dart';
-import '../../presentation/screens/sign_up_screen/sign_up_screen.dart';
+import '../../presentation/screens/sign/sign_in_screen.dart';
+import '../../presentation/screens/sign/sign_up_screen.dart';
+
 import '../../presentation/screens/splash_screen/splash_screen.dart';
 import '../../presentation/screens/verification_screen/verification_screen.dart';
 
