@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gnexus/widgets/custom/custom_button.dart';
-import 'package:gnexus/widgets/custom/custom_textfield.dart';
-
-import '../../services/routes/routes_name.dart';
+import '../../../services/routes/routes_name.dart';
+import '../../widgets/custom/custom_button.dart';
+import '../../widgets/custom/custom_textfield.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);

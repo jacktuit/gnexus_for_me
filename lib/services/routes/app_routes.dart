@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gnexus/screens/forgot_password_screen/forgot_password_screen.dart';
-import 'package:gnexus/screens/sign_up_screen/sign_up_screen.dart';
-import 'package:gnexus/screens/verification_screen/verification_screen.dart';
 import 'package:gnexus/services/routes/routes_name.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../screens/bottom_navigation/bottom_navigation.dart';
-import '../../screens/login_screen/login_screen.dart';
-import '../../utils/utils_variable/variables.dart';
-
+import '../../presentation/screens/bottom_navigation/bottom_navigation.dart';
+import '../../presentation/screens/forgot_password_screen/forgot_password_screen.dart';
+import '../../presentation/screens/login_screen/login_screen.dart';
+import '../../presentation/screens/sign_up_screen/sign_up_screen.dart';
+import '../../presentation/screens/splash_screen/splash_screen.dart';
+import '../../presentation/screens/verification_screen/verification_screen.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -27,13 +24,16 @@ class MainNavigator extends StatelessWidget {
       },
       child: Navigator(
         key: navigatorKey,
-        initialRoute:UtilsVariables.loginUser? MainRoutes.mainPage:MainRoutes.register,
+        initialRoute:MainRoutes.splashScreen,
         onGenerateRoute: (RouteSettings settings) {
           WidgetBuilder? builder;
           switch (settings.name) {
 
             case MainRoutes.register:
               builder = (BuildContext _) => RegisterScreen();
+              break;
+              case MainRoutes.splashScreen:
+              builder = (BuildContext _) => SplashScreen();
               break;
               case MainRoutes.login:
               builder = (BuildContext _) => LoginScreen();

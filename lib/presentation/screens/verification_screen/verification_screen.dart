@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:gnexus/widgets/custom/custom_button.dart';
+
+import '../../widgets/custom/custom_button.dart';
+
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gnexus/widgets/custom/custom_button.dart';
 
-import '../../services/routes/routes_name.dart';
+
+import '../../../services/routes/routes_name.dart';
+
+import '../../widgets/custom/custom_button.dart';
 import '../../widgets/custom/custom_textfield.dart';
 
 class RegisterScreen extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gnexus/presentation/screens/splash_screen/splash_screen.dart';
 
 import 'package:gnexus/services/language/lang_json.dart';
 import 'package:gnexus/services/routes/app_routes.dart';

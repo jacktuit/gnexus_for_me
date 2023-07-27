@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:gnexus/widgets/custom/custom_button.dart';
 
-import '../../utils/utils_variable/variables.dart';
+import '../../../utils/utils_variable/variables.dart';
+import '../../widgets/custom/custom_button.dart';
+
 
 class FamilyTree extends StatefulWidget {
   const FamilyTree({Key? key}) : super(key: key);

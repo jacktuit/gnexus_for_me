@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gnexus/connection/apis/login_api/login_api.dart';
-import 'package:gnexus/connection/models/login_model/login_model.dart';
-import 'package:gnexus/widgets/custom/custom_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../services/routes/routes_name.dart';
-import '../../utils/status_code/status_code.dart';
-import '../../utils/utils_variable/variables.dart';
+import '../../../data/apis/login_api/login_api.dart';
+import '../../../data/models/login_model/login_model.dart';
+import '../../../services/routes/routes_name.dart';
+import '../../../utils/status_code/status_code.dart';
+import '../../../utils/utils_variable/variables.dart';
+import '../../widgets/custom/custom_button.dart';
 import '../../widgets/custom/custom_textfield.dart';
 import '../bottom_navigation/bottom_navigation.dart';
 
@@ -28,13 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_rounded),
-        ),
+      appBar:
+      AppBar(
+
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
@@ -96,7 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Spacer(),
                     TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(context, MainRoutes.register);
+
                         },
                         child: Text('Sign up',
                             style: TextStyle(color: Color(0xff000080))))
