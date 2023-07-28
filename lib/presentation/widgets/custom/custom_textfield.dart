@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget {
  final String? hintText;
  final TextEditingController? textController;
-  const CustomTextField({Key? key, this.hintText, this.textController}) : super(key: key);
+ final String? fillGaps;
+ final String? errorText;
+
+  const CustomTextField({Key? key, this.hintText, this.textController, this.fillGaps, this.errorText}) : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -11,7 +14,7 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
-    return               Material(
+    return  Material(
       color: Colors.white,
       elevation: 8.0,
       borderRadius: BorderRadius.circular(12),
@@ -22,7 +25,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           controller:widget.textController ,
           validator:(value) {
             if (value == null || value.isEmpty) {
-              return 'Please fill the fields';
+              return widget.fillGaps ??'Please fill the fields';
             }
             return null;
           } ,
@@ -32,6 +35,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 borderSide: BorderSide(color: Colors.white),
               ),
               hintText: widget.hintText??'',
+              errorText: widget.errorText,
               hintStyle: TextStyle(color: Color(0x8000000d),fontSize: 14,fontWeight: FontWeight.w400),
               fillColor: Colors.white,
               contentPadding:

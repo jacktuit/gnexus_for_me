@@ -91,7 +91,8 @@ class _ProfileState extends State<Profile> {
                 width: 10,
               ),
             ],
-          )
+          ),
+
         ],
       ),
     );

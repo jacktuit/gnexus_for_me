@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:gnexus/utils/status_code/status_code.dart';
 import 'package:http/http.dart' as http;
 
-import '../../models/login_model/login_model.dart';
+import '../../models/login_model/sign_in_model.dart';
 
 class LoginRepository {
   static final LoginRepository _singleton = LoginRepository._internal();

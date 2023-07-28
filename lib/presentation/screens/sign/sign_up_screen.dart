@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gnexus/data/models/login_model/sign_up_model.dart';
 
-
+import '../../../data/apis/login_api/sign_up_api.dart';
 import '../../../services/routes/routes_name.dart';
 
 import '../../widgets/custom/custom_button.dart';
@@ -18,25 +19,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final passWordController = TextEditingController();
-  // final fullNameController = TextEditingController();
+  final userNameController = TextEditingController();
+  bool showErrorName = false;
+  SignUpModel? signUpModelInfo;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
-
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
           child: Form(
             key: formKey,
-
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                      SizedBox(height: 80,),
+                SizedBox(
+                  height: 80,
+                ),
                 SizedBox(
                     width: 266,
                     child: Text(
@@ -55,19 +57,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 CustomTextField(
                   hintText: "Full Name",
-                  textController:fullNameController ,
+                  textController: fullNameController,
+                  errorText: showErrorName ? "Enter first and last name" : null,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: "Surname",
+                  textController: userNameController,
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 CustomTextField(
                   hintText: "Email Address",
+                  textController: emailController,
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 CustomTextField(
                   hintText: "Password",
+                  textController: passWordController,
                 ),
                 SizedBox(
                   height: 40,
@@ -77,9 +89,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 46,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
+                        try {
+                          var str = fullNameController.text;
+                          var index = str.indexOf(' ');
+                          var firstName = str.substring(0, index);
+                          var lastName = str.substring(index).replaceAll(" ", '');
+                          signUp(firstName,lastName,userNameController.text,emailController.text,passWordController.text);
 
+                          showErrorName = false;
+                          setState(() {});
+                        } catch (e) {
+                          print("Teststs");
+                          showErrorName = true;
+                          setState(() {});
+                        }
                       }
-
                     },
                     title: "Sign up",
                     color: Color(0xff000080)),
@@ -100,5 +124,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  void signUp(String firstName,String lastName,String userName,String email,String password,)async{
+    final result = await SignUpRepository.getInstance().signUp(firstName, lastName, userName, email, password);
+    signUpModelInfo=result;
+
+
   }
 }

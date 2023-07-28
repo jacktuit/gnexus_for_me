@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gnexus/presentation/screens/profiles_screen/profile_all_connec_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../data/apis/login_api/login_api.dart';
-import '../../../data/models/login_model/login_model.dart';
+import '../../../data/apis/login_api/sign_in_api.dart';
+import '../../../data/models/login_model/sign_in_model.dart';
 import '../../../services/routes/routes_name.dart';
 import '../../../utils/status_code/status_code.dart';
 import '../../../utils/utils_variable/variables.dart';
@@ -103,8 +104,20 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileAllConnectionsScreen()),);
+        },
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.navigation),
+      ),
     );
+
+
   }
+
 
   void login(String email, String password, BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
