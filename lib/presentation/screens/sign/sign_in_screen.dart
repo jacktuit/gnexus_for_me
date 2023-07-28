@@ -9,6 +9,7 @@ import '../../../utils/utils_variable/variables.dart';
 import '../../widgets/custom/custom_button.dart';
 import '../../widgets/custom/custom_textfield.dart';
 import '../bottom_navigation/bottom_navigation.dart';
+import '../verification_screen/verification_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,15 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   ProfileModel? profileModelInfo;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar:
-      AppBar(
-
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
@@ -92,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Spacer(),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, MainRoutes.register);
-
+                          Navigator.pushReplacementNamed(
+                              context, MainRoutes.register);
                         },
                         child: Text('Sign up',
                             style: TextStyle(color: Color(0xff000080))))
@@ -108,32 +105,40 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ProfileAllConnectionsScreen()),);
+            MaterialPageRoute(
+                builder: (context) => ProfileAllConnectionsScreen()),
+          );
         },
         backgroundColor: Colors.green,
         child: const Icon(Icons.navigation),
       ),
     );
-
-
   }
-
 
   void login(String email, String password, BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await LoginRepository.getInstance().login(email, password);
     profileModelInfo = response;
-    if (StatusCode.successStatusCode == 200) {
 
-      UtilsVariables.userName=profileModelInfo!.firstName!;
-      print("____");
-      print(profileModelInfo?.tokens?.access);
-      await prefs.setString('accessToken', (profileModelInfo?.tokens?.access).toString());
+    if (StatusCode.successStatusCode == 200) {
+      UtilsVariables.userName = profileModelInfo!.firstName!;
+      await prefs.setString(
+          'accessToken', (profileModelInfo?.tokens?.access).toString());
+      bool? navigate = prefs.getBool("confirmEmail");
+
       Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => MainPage(selectedIndex: 0)));
+      (navigate ?? false)
+          ? Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      MainPage(selectedIndex: 0)))
+          : Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VerificationScreen(
+                        routName: 'enterFirst',
+                      )));
     }
   }
 }

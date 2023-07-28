@@ -64,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 20,
                 ),
                 CustomTextField(
-                  hintText: "Surname",
+                  hintText: "User name",
                   textController: userNameController,
                 ),
                 SizedBox(
@@ -94,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           var index = str.indexOf(' ');
                           var firstName = str.substring(0, index);
                           var lastName = str.substring(index).replaceAll(" ", '');
-                          signUp(firstName,lastName,userNameController.text,emailController.text,passWordController.text);
+                          signUp(firstName,lastName,userNameController.text,emailController.text,passWordController.text,context);
 
                           showErrorName = false;
                           setState(() {});
@@ -126,8 +126,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void signUp(String firstName,String lastName,String userName,String email,String password,)async{
-    final result = await SignUpRepository.getInstance().signUp(firstName, lastName, userName, email, password);
+  void signUp(String firstName,String lastName,String userName,String email,String password,BuildContext context)async{
+    final result = await SignUpRepository.getInstance().signUp(context, firstName, lastName, userName, email, password);
     signUpModelInfo=result;
 
 

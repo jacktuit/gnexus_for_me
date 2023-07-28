@@ -25,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigator() async {
     await Future.delayed(Duration.zero);
-    {ProfileAccessRepository.getInstance().sendToken();
+    {
+      ProfileAccessRepository.getInstance().sendToken();
       Future.delayed(Duration(seconds: 2)).then((value) {
         Navigator.of(context).popUntil((route) => route.isFirst);
         if (StatusCode.successStatusCode == 401) {
@@ -34,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
               MaterialPageRoute(
                     builder: (BuildContext context) => LoginScreen()));
         } else {
+
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(

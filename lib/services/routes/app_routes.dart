@@ -42,9 +42,6 @@ class MainNavigator extends StatelessWidget {
               case MainRoutes.forgotPassword:
               builder = (BuildContext _) => ForgotPasswordScreen();
               break;
-              case MainRoutes.verificationScreen:
-              builder = (BuildContext _) => VerificationScreen();
-              break;
               case MainRoutes.mainPage:
               builder = (BuildContext _) => MainPage(selectedIndex: 0,);
               break;

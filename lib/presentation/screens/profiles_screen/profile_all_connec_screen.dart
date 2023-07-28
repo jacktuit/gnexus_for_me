@@ -11,6 +11,7 @@ class ProfileAllConnectionsScreen extends StatelessWidget {
         children: [
           CustomAppBar(),
 
+
         ],
       ),
     );

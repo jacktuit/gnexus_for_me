@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:gnexus/presentation/screens/forgot_password_screen/enter_new_password.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/custom/custom_button.dart';
+import '../bottom_navigation/bottom_navigation.dart';
 
 
 class VerificationScreen extends StatefulWidget {
-  const VerificationScreen({Key? key}) : super(key: key);
+  final String routName;
+  const VerificationScreen({Key? key, required this.routName}) : super(key: key);
 
   @override
   State<VerificationScreen> createState() => _VerificationScreenState();
@@ -102,7 +106,23 @@ class _VerificationScreenState extends State<VerificationScreen> {
               height: 30,
             ),
             CustomButton(
-              onPressed: () {},
+              onPressed: () async{
+                print(widget.routName);
+                if(widget.routName=="forgotPassword"){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>EnterNewLogin()));
+
+                }else{
+                  final SharedPreferences prefs = await SharedPreferences.getInstance();
+                  prefs.setBool('confirmEmail', true);
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => MainPage(selectedIndex: 0)));
+
+                }
+
+
+              },
               title: "Verify",
               color: Color(0xff000080),
               width: double.infinity,
