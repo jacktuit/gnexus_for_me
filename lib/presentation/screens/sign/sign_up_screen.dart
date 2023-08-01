@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:gnexus/data/models/login_model/sign_up_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../data/apis/login_api/sign_up_api.dart';
 import '../../../services/routes/routes_name.dart';
 
+import '../../../utils/utils_variable/variables.dart';
 import '../../widgets/custom/custom_button.dart';
 import '../../widgets/custom/custom_textfield.dart';
 
@@ -16,12 +22,22 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
-  final fullNameController = TextEditingController();
+  final firstnameController = TextEditingController();
   final emailController = TextEditingController();
   final passWordController = TextEditingController();
-  final userNameController = TextEditingController();
+  final lastnameController = TextEditingController();
   bool showErrorName = false;
   SignUpModel? signUpModelInfo;
+  File? documentFile;
+  File? imageCameraForView;
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    UtilsVariables.errorTextEmail = '';
+    UtilsVariables.errorTextPassword = '';
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,28 +67,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 80,
                 ),
-                Image.asset("assets/man.png"),
+                imageCameraForView != null
+                    ? InkWell(
+                        onTap: () {},
+                        child: Image.file(imageCameraForView!, height:100,fit: BoxFit.cover,))
+                    : InkWell(
+                        onTap: () {
+                          _onImageButtonPressed(ImageSource.camera,
+                              context: context);
+                        },
+                        child: Image.asset("assets/man.png")),
                 SizedBox(
                   height: 30,
                 ),
+                ElevatedButton(
+                  onPressed: _signInWithFacebook,
+                  child: Text('Sign up with Facebook'),
+                ),
+
                 CustomTextField(
-                  hintText: "Full Name",
-                  textController: fullNameController,
+                  hintText: "First name",
+                  textController: firstnameController,
                   errorText: showErrorName ? "Enter first and last name" : null,
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 CustomTextField(
-                  hintText: "User name",
-                  textController: userNameController,
+                  hintText: "Last name",
+                  textController: lastnameController,
+                  errorText: showErrorName ? "Enter first and last name" : null,
                 ),
                 SizedBox(
                   height: 20,
                 ),
+
                 CustomTextField(
                   hintText: "Email Address",
                   textController: emailController,
+                  errorText: UtilsVariables.errorTextEmail == ''
+                      ? null
+                      : UtilsVariables.errorTextEmail,
                 ),
                 SizedBox(
                   height: 20,
@@ -80,6 +115,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomTextField(
                   hintText: "Password",
                   textController: passWordController,
+                  errorText: UtilsVariables.errorTextPassword == ''
+                      ? null
+                      : UtilsVariables.errorTextPassword,
                 ),
                 SizedBox(
                   height: 40,
@@ -87,14 +125,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomButton(
                     width: double.infinity,
                     height: 46,
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         try {
-                          var str = fullNameController.text;
-                          var index = str.indexOf(' ');
-                          var firstName = str.substring(0, index);
-                          var lastName = str.substring(index).replaceAll(" ", '');
-                          signUp(firstName,lastName,userNameController.text,emailController.text,passWordController.text,context);
+
+                          signUp(
+                              firstnameController.text,
+                              lastnameController.text,
+                              "",
+                              emailController.text,
+                              passWordController.text,
+                              context);
 
                           showErrorName = false;
                           setState(() {});
@@ -103,6 +144,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           showErrorName = true;
                           setState(() {});
                         }
+                      }
+                      await Future.delayed(Duration(milliseconds: 500));
+                      {
+                        setState(() {});
                       }
                     },
                     title: "Sign up",
@@ -126,10 +171,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void signUp(String firstName,String lastName,String userName,String email,String password,BuildContext context)async{
-    final result = await SignUpRepository.getInstance().signUp(context, firstName, lastName, userName, email, password);
-    signUpModelInfo=result;
+  Future<void> _onImageButtonPressed(
+    ImageSource source, {
+    required BuildContext context,
+  }) async {
+    if (mounted) {
+      {
+        try {
+          final XFile? pickedFile = await _picker.pickImage(
+            source: source,
+            maxWidth: 480,
+            maxHeight: 640,
+            imageQuality: 100,
+          );
+          setState(() {
+            // _setImageFileListFromFile(pickedFile);
+            pickImageCameraAndUpload(context, pickedFile);
+          });
+        } catch (e) {
+          setState(() {});
+        }
+      }
+    }
+  }
+  Future<void> _signInWithFacebook() async {
+    try {
+      // Log in with Facebook
+      LoginResult accessToken = await FacebookAuth.instance.login();
 
+      // Get user data from the Graph API
+      final userData = await FacebookAuth.instance.getUserData();
+
+      // You can now use the obtained data to create an account or perform other actions
+      // For example, you can access the user's email using 'userData["email"]'
+      print("Facebook User ID: ${userData["id"]}");
+      print("Facebook User Name: ${userData["name"]}");
+      print("Facebook User Email: ${userData["email"]}");
+    } catch (e) {
+      print("Facebook sign-in error: $e");
+    }
+  }
+
+  Future<void> pickImageCameraAndUpload(
+      BuildContext context, XFile? imageCamera) async {
+    if (imageCamera != null) {
+      documentFile = File(imageCamera.path);
+      setState(() {});
+      Future.delayed(Duration(seconds: 1));
+      try {
+        final imageTempCamera = File(imageCamera.path);
+        setState(() => this.imageCameraForView = imageTempCamera);
+        print(imageCamera);
+        setState(() {});
+      } on PlatformException catch (e) {
+        print('Failed to pick image: $e');
+      }
+    }
+  }
+
+  void signUp(String firstName, String lastName, String userName, String email,
+      String password, BuildContext context) async {
+    final result = await SignUpRepository.getInstance()
+        .signUp(context, firstName, lastName, userName, email, password);
+    signUpModelInfo = result;
 
   }
 }

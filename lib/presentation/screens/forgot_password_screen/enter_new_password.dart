@@ -1,10 +1,20 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../services/routes/routes_name.dart';
 import '../../widgets/custom/custom_button.dart';
 import '../../widgets/custom/custom_textfield.dart';
-class EnterNewLogin extends StatelessWidget {
-  const EnterNewLogin({Key? key}) : super(key: key);
+class EnterNewLogin extends StatefulWidget {
+   EnterNewLogin({Key? key}) : super(key: key);
+
+  @override
+  State<EnterNewLogin> createState() => _EnterNewLoginState();
+}
+
+class _EnterNewLoginState extends State<EnterNewLogin> {
+  final passWordController = TextEditingController();
+
+   bool showError=false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +46,27 @@ class EnterNewLogin extends StatelessWidget {
             SizedBox(height: 20,),
 
             SizedBox(height: 80,),
-            CustomTextField(hintText: "Enter new password",),
+            CustomTextField(hintText: "Enter new password",
+            textController: passWordController,
+              errorText: showError?'You should enter minimum character 8':null,
+            ),
             SizedBox(height: 80,),
             CustomButton(
               width: double.infinity,
               height: 46,
               onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                if(passWordController.text.length<=7){
+                  showError=true;
+                  setState(() {
 
-                Navigator.pushReplacementNamed(context, MainRoutes.mainPage);
+                  });
+
+                }else{
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+
+                  Navigator.pushReplacementNamed(context, MainRoutes.mainPage);
+                }
+
 
               }, title: 'Enter', color: Color(0xff000080),),
             SizedBox(height: 40,),

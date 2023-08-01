@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gnexus/utils/utils_variable/variables.dart';
 import '../../../data/apis/password_api/forgot_password_api.dart';
 import '../../../services/routes/routes_name.dart';
 import '../../widgets/custom/custom_button.dart';
@@ -62,6 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               CustomTextField(
                 textController: emailController,
                 hintText: "Email Address",
+                errorText: UtilsVariables.errorForgotPassword,
               ),
               SizedBox(
                 height: 80,
@@ -69,12 +71,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               CustomButton(
                 width: double.infinity,
                 height: 46,
-                onPressed: () {
+                onPressed: () async{
                   if (formKey.currentState!.validate()) {
                     ForgotPasswordRepository.getInstance().forgotPassword(context, emailController.text);
 
                   }
+                  await Future.delayed(Duration(milliseconds: 500));
+                  {
+                    setState(() {
 
+                    });
+                  }
 
                 },
                 title: 'Reset Password',

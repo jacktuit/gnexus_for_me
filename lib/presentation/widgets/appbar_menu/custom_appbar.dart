@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:gnexus/presentation/screens/bottom_navigation/bottom_navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+import '../../screens/family_tree_screen/profile/profile.dart';
+import '../../screens/notifications_screens/notifications_details_screen.dart';
+import '../../screens/sign/sign_in_screen.dart';
+
+class CustomAppBar extends StatefulWidget {
+  CustomAppBar({Key? key, this.titleDropDown}) : super(key: key);
+  late String? titleDropDown;
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+
+  String dropdownValue = "Name";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  var items = ['Name', 'Profile', 'Log out'];
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child:
-    Row(
+    return Row(
+      // crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
@@ -21,12 +43,64 @@ class CustomAppBar extends StatelessWidget {
                 child: ClipOval(child: Image.asset("assets/cloud.png")),
               ),
             ),
-            Text(
-              "John Doe",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+
+            DropdownButton(
+              value: "${widget.titleDropDown ?? ''}",
+              icon: const Icon(Icons.keyboard_arrow_down),
+              items: items.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(width: 20,),
+                      Text(items, style: TextStyle(color: items == "Log out"
+                          ? Colors.red
+                          : Colors.indigo),),
+                      SizedBox(width: 5,),
+                      items == "Log out"
+                          ?
+                      Container(
+                          width: 30,
+                          child: Icon(Icons.login, color: Colors.red,))
+                          : Container(width: 0, height: 0,)
+                    ],
+                  ),
+                );
+              }).toList(),
+
+              onChanged: (String? newValue) {
+                setState(() {
+                  print(widget.titleDropDown);
+                  widget.titleDropDown = newValue!;
+                  if (widget.titleDropDown == "Name") {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainPage(selectedIndex: 0)),
+                    );
+                  }
+                  if (widget.titleDropDown == "Profile") {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Profile()),
+                    );
+                  }
+                  if (widget.titleDropDown == "Log out") {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => LoginScreen()));
+                    setState(() async {
+                      final SharedPreferences prefs = await SharedPreferences
+                          .getInstance();
+                      prefs.clear();
+                    });
+                  }
+                });
+              },
             ),
-            RotatedBox(
-                quarterTurns: 3, child: Icon(Icons.arrow_back_ios_rounded))
+
           ],
         ),
         Row(
@@ -39,13 +113,18 @@ class CustomAppBar extends StatelessWidget {
             SizedBox(
               width: 15,
             ),
-            Image.asset("assets/Bell.png"),
+            InkWell(
+                onTap: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => NotificationsDetailsScreen()));
+                },
+                child: Image.asset("assets/Bell.png")),
             SizedBox(
               width: 20,
             )
           ],
         )
       ],
-    ));
+    );
   }
 }

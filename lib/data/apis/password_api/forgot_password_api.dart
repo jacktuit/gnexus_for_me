@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gnexus/data/models/login_model/sign_up_model.dart';
 import 'package:gnexus/presentation/screens/sign/sign_in_screen.dart';
 import 'package:gnexus/utils/status_code/status_code.dart';
+import 'package:gnexus/utils/utils_variable/variables.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../presentation/screens/verification_screen/verification_screen.dart';
@@ -49,29 +50,15 @@ class ForgotPasswordRepository {
                     )));
         return resultClass;
       } else {
-        final snackBar = SnackBar(
-          content: Text("${resultClass['email']}"
-              .replaceAll("null", '')
-              .replaceAll("[", '')
-              .replaceAll("]", '')),
-          action: SnackBarAction(
-            label: 'Undo',
-            onPressed: () {},
-          ),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+        UtilsVariables.errorForgotPassword=resultClass['email'];
+
       }
     } catch (e) {
       print("e");
       print(e);
-      final snackBar = SnackBar(
-        content: Text("Can not find email address!"),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {},
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      UtilsVariables.errorForgotPassword="Can not find email address!";
+
     }
 
     return;

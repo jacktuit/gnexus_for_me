@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:gnexus/utils/status_code/status_code.dart';
+import 'package:gnexus/utils/utils_variable/variables.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/login_model/sign_in_model.dart';
@@ -35,11 +37,17 @@ class LoginRepository {
 
       print(statusCode);
       StatusCode.successStatusCode=statusCode;
+      final resultClass = json.decode(utf8.decode(response.bodyBytes));
       if (statusCode == 200) {
-        final resultClass = json.decode(utf8.decode(response.bodyBytes));
+
         print(resultClass);
         print(utf8.decode(response.bodyBytes));
         fileUrl = ProfileModel.fromJson(resultClass);
+      }else{
+        print(resultClass);
+
+        UtilsVariables.errorText="Email or password invalid";
+
       }
     } catch (e) {
       print("e");

@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gnexus/data/models/login_model/sign_up_model.dart';
 import 'package:gnexus/presentation/screens/sign/sign_in_screen.dart';
+import 'package:gnexus/presentation/screens/verification_screen/verification_screen.dart';
 import 'package:gnexus/utils/status_code/status_code.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../utils/utils_variable/variables.dart';
 import '../../models/login_model/sign_in_model.dart';
 
 class SignUpRepository {
@@ -50,24 +52,17 @@ class SignUpRepository {
         signInfo = SignUpModel.fromJson(resultClass);
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            context, MaterialPageRoute(builder: (context) => VerificationScreen(routName: 'sign up',)));
       } else {
-        final snackBar = SnackBar(
-          content: Text("${resultClass['email']}"
-                  .replaceAll("null", '')
-                  .replaceAll("[", '')
-                  .replaceAll("]", '') +
-              "\n" +
-              "${resultClass['password']}"
-                  .replaceAll("null", '')
-                  .replaceAll("[", '')
-                  .replaceAll("]", '')),
-          action: SnackBarAction(
-            label: 'Undo',
-            onPressed: () {},
-          ),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+       UtilsVariables.errorTextEmail="${resultClass['email']}"
+           .replaceAll("null", '')
+           .replaceAll("[", '')
+           .replaceAll("]", '');
+       UtilsVariables.errorTextPassword="${resultClass['password']}"
+           .replaceAll("null", '')
+           .replaceAll("[", '')
+           .replaceAll("]", '');
+
       }
     } catch (e) {
       print("e");

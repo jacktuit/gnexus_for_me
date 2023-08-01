@@ -16,6 +16,12 @@
 	<string>gnexus</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Kameraga ruxsat bering!</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Mikrafonga ruxsat bering!</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Albomga ruxsat bering!</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

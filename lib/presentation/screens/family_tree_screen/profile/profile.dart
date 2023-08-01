@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gnexus/presentation/screens/family_tree_screen/profile/settings.dart';
+import 'package:gnexus/presentation/widgets/appbar_menu/custom_appbar.dart';
+import 'package:gnexus/presentation/widgets/profile_widgets/profile_person_details.dart';
 
 import 'my_plan.dart';
 
@@ -11,29 +13,46 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String mainPart="Profile";
+  String mainPart = "Profile";
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              sectionProfile('Profile', 'assets/man_profile.png'),
-              sectionProfile('My plan', 'assets/my_plan.png'),
-              sectionProfile('Settings', 'assets/settings.png'),
-            ],
-          ),
-          (mainPart=="Profile")?
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: informationOwnerProfile(),
-          ):(mainPart=="My plan")?
-          MyPlan():Setting(),
-        ],
+    return Scaffold(
+      appBar: AppBar(title: CustomAppBar(titleDropDown: "Profile",),),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+
+            Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      sectionProfile('Profile', 'assets/man_profile.png'),
+                      sectionProfile('My plan', 'assets/my_plan.png'),
+                      sectionProfile('Settings', 'assets/settings.png'),
+                    ],
+                  ),
+                  (mainPart == "Profile")
+                      ? Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            children: [
+                              ProfilePersonDetail(),
+                              SecurityProfile(),
+                            ],
+                          ))
+                      : (mainPart == "My plan")
+                          ? SingleChildScrollView(child: MyPlan())
+                          : Setting(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -72,28 +91,68 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Widget informationOwnerProfile() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
-        color: Color(0xffF9F9F9),
-      ),
-      child: Column(
-        children: [
-          Row(
+  // Widget informationOwnerProfile() {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(6),
+  //       color: Color(0xffF9F9F9),
+  //     ),
+  //     child: Column(
+  //       children: [
+  //         Row(
+  //           children: [
+  //             Icon(Icons.person),
+  //             Text("Personal details"),
+  //             Spacer(),
+  //             Icon(Icons.edit),
+  //             Text("Edit"),
+  //             SizedBox(
+  //               width: 10,
+  //             ),
+  //           ],
+  //         ),
+  //
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Widget SecurityProfile() {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: Color(0xffF9F9F9),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.person),
-              Text("Personal details"),
-              Spacer(),
-              Icon(Icons.edit),
-              Text("Edit"),
+              Row(
+                children: [
+                  Icon(Icons.lock_outline),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Security"),
+                ],
+              ),
               SizedBox(
-                width: 10,
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(onPressed: () {}, child: Text("Change password")),
+                  Text("|"),
+                  TextButton(onPressed: () {}, child: Text("Reset Password"))
+                ],
               ),
             ],
           ),
-
-        ],
+        ),
       ),
     );
   }

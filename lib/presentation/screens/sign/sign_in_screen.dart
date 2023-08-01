@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gnexus/presentation/screens/family_tree_screen/profile/my_plan.dart';
+import 'package:gnexus/presentation/screens/family_tree_screen/profile/profile.dart';
+import 'package:gnexus/presentation/screens/profiles_screen/photos_screen.dart';
 import 'package:gnexus/presentation/screens/profiles_screen/profile_all_connec_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/apis/login_api/sign_in_api.dart';
@@ -23,7 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   ProfileModel? profileModelInfo;
+  @override
+  void dispose() {
 
+
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomTextField(
                   textController: emailController,
                   hintText: "Email Address",
+                  errorText: UtilsVariables.errorText,
                 ),
                 SizedBox(
                   height: 20,
@@ -60,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomTextField(
                   hintText: "Password",
                   textController: passwordController,
+                  // errorText: UtilsVariables.errorText,
                 ),
                 SizedBox(
                   height: 40,
@@ -106,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProfileAllConnectionsScreen()),
+                builder: (context) => PhotosScreen()),
           );
         },
         backgroundColor: Colors.green,
@@ -119,13 +129,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final response = await LoginRepository.getInstance().login(email, password);
     profileModelInfo = response;
-
     if (StatusCode.successStatusCode == 200) {
+
       UtilsVariables.userName = profileModelInfo!.firstName!;
       await prefs.setString(
           'accessToken', (profileModelInfo?.tokens?.access).toString());
       bool? navigate = prefs.getBool("confirmEmail");
-
       Navigator.of(context).popUntil((route) => route.isFirst);
       (navigate ?? false)
           ? Navigator.pushReplacement(
@@ -139,6 +148,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   builder: (context) => VerificationScreen(
                         routName: 'enterFirst',
                       )));
+      UtilsVariables.errorText=null;
+    }
+    Future.delayed(Duration(seconds: 1));{
+      setState(() {
+
+      });
     }
   }
 }
