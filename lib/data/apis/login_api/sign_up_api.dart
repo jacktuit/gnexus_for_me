@@ -45,6 +45,7 @@ class SignUpRepository {
         body: json.encode(requestParameters),
       );
       final int statusCode = response.statusCode;
+      print('______');
       print(statusCode);
       StatusCode.successStatusCode = statusCode;
       final resultClass = json.decode(utf8.decode(response.bodyBytes));

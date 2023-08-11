@@ -42,6 +42,7 @@ class ProfilePersonDetail extends StatelessWidget {
                   child: ClipOval(child: Image.asset("assets/user_photo.png")),
                 ),
               ),
+
               SizedBox(width: 6,),
 
               Text('John Doe'),
@@ -123,6 +124,6 @@ class ProfilePersonDetail extends StatelessWidget {
       ),
 
     );
-    ;
+
   }
 }

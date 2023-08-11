@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../connection_screen/connection_screen.dart';
 import '../family_tree_screen/family_tee.dart';
+import '../gallery_screen/gallery_screen.dart';
 import '../gnex_cloud_screen/gnex_cloud_screen.dart';
 class MainPage extends StatefulWidget {
   int selectedIndex;
@@ -14,7 +15,7 @@ class _MainPageState extends State<MainPage> {
   final List<Map<String, dynamic>> pages = [
     {'pageName': FamilyTree(), 'title': 'Family tree'},
     {'pageName': FamilyTree(), 'title': 'Gnexus Cloud'},
-    {'pageName': GnexCloudScreen(), 'title': 'Gallery'},
+    {'pageName': GalleryScreen(), 'title': 'Gallery'},
     {'pageName': FamilyTree(), 'title': 'Image Editingd'},
     {'pageName': ConnectionScreen(), 'title': 'Connection'},
 

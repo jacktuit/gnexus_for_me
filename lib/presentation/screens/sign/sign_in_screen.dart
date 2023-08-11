@@ -78,10 +78,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     height: 46,
                     onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        login(emailController.text, passwordController.text,
-                            context);
-                      }
+                      // if (formKey.currentState!.validate()) {
+                      //   login(emailController.text, passwordController.text,
+                      //       context);
+                      // }
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => MainPage(selectedIndex: 0)));
                     },
                     title: "Sign In",
                     color: Color(0xff000080)),
