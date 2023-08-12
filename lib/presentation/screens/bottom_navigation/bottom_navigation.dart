@@ -3,6 +3,7 @@ import '../connection_screen/connection_screen.dart';
 import '../family_tree_screen/family_tee.dart';
 import '../gallery_screen/gallery_screen.dart';
 import '../gnex_cloud_screen/gnex_cloud_screen.dart';
+import '../image_edit/image_edit.dart';
 class MainPage extends StatefulWidget {
   int selectedIndex;
   MainPage({Key? key, required this.selectedIndex}) : super(key: key);
@@ -13,10 +14,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final List<Map<String, dynamic>> pages = [
-    {'pageName': FamilyTree(), 'title': 'Family tree'},
+    {'pageName': GalleryScreen(), 'title': 'Family tree'},
     {'pageName': FamilyTree(), 'title': 'Gnexus Cloud'},
     {'pageName': GalleryScreen(), 'title': 'Gallery'},
-    {'pageName': FamilyTree(), 'title': 'Image Editingd'},
+    {'pageName': ImageEditScreen(), 'title': 'Image Editingd'},
     {'pageName': ConnectionScreen(), 'title': 'Connection'},
 
   ];
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
           items: [
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/main.png')),
-                label: "Family tree"),
+                label: "Gallery"),
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/cloud.png')),
                 label: "Gnexus Cloud"),
