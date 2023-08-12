@@ -33,17 +33,25 @@ class _CustomAppBarState extends State<CustomAppBar> {
       children: [
         Row(
           children: [
+            // CircleAvatar(
+            //   radius: 32,
+            //   backgroundColor: Colors.white60,
+            //
+            //   child: Padding(
+            //
+            //     padding: const EdgeInsets.all(2), // Border radius
+            //     child: ClipOval(child: Image.asset("assets/cloud.png")),
+            //   ),
+            // ),
             CircleAvatar(
-              radius: 32,
-              backgroundColor: Colors.white60,
-
+              radius: 24,
+              backgroundColor: Colors.black,
               child: Padding(
-
                 padding: const EdgeInsets.all(2), // Border radius
-                child: ClipOval(child: Image.asset("assets/cloud.png")),
+                child: ClipOval(child: Image.asset("assets/user_photo.png")),
               ),
             ),
-
+            SizedBox(width: 5,),
             DropdownButton(
               value: "${widget.titleDropDown ?? ''}",
               icon: const Icon(Icons.keyboard_arrow_down),
@@ -53,7 +61,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(width: 20,),
+                      SizedBox(width: 10,),
                       Text(items, style: TextStyle(color: items == "Log out"
                           ? Colors.red
                           : Colors.indigo),),
@@ -115,12 +123,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
             ),
             InkWell(
                 onTap: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(
+                  Navigator.push(context, MaterialPageRoute(
                       builder: (context) => NotificationsDetailsScreen()));
                 },
                 child: Image.asset("assets/Bell.png")),
             SizedBox(
-              width: 20,
+              width: 10,
             )
           ],
         )
