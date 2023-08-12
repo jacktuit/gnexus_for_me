@@ -24,8 +24,6 @@ class MainNavigator extends StatelessWidget {
         return !canPop;
       },
       child: Navigator(
-
-
         key: navigatorKey,
         initialRoute:MainRoutes.splashScreen,
         onGenerateRoute: (RouteSettings settings) {
