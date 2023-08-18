@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gnexus/presentation/screens/bottom_navigation/bottom_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../services/routes/routes_name.dart';
 import '../../screens/family_tree_screen/profile/profile.dart';
 import '../../screens/notifications_screens/notifications_details_screen.dart';
 import '../../screens/sign/sign_in_screen.dart';
@@ -95,13 +96,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     );
                   }
                   if (widget.titleDropDown == "Log out") {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => LoginScreen()));
+                    Navigator.pushReplacementNamed(context,MainRoutes.login);
                     setState(() async {
-                      final SharedPreferences prefs = await SharedPreferences
-                          .getInstance();
+                      final SharedPreferences prefs = await SharedPreferences.getInstance();
                       prefs.clear();
                     });
                   }
