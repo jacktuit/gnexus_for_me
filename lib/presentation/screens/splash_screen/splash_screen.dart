@@ -5,6 +5,7 @@ import 'package:gnexus/presentation/screens/bottom_navigation/bottom_navigation.
 import 'package:gnexus/presentation/screens/sign/sign_in_screen.dart';
 
 import '../../../data/apis/login_api/profile_access.dart';
+import '../../../services/routes/routes_name.dart';
 import '../../../utils/status_code/status_code.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -30,10 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(Duration(seconds: 2)).then((value) {
         Navigator.of(context).popUntil((route) => route.isFirst);
         if (StatusCode.successStatusCode == 401) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                    builder: (BuildContext context) => LoginScreen()));
+          Navigator.pushReplacementNamed(context,MainRoutes.login);
         } else {
 
           Navigator.pushReplacement(

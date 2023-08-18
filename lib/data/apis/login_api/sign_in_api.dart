@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gnexus/utils/status_code/status_code.dart';
 import 'package:gnexus/utils/utils_variable/variables.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/login_model/sign_in_model.dart';
 
@@ -39,14 +40,15 @@ class LoginRepository {
       StatusCode.successStatusCode=statusCode;
       final resultClass = json.decode(utf8.decode(response.bodyBytes));
       if (statusCode == 200) {
-
         print(resultClass);
+        // final SharedPreferences prefs = await SharedPreferences.getInstance();
+        // await prefs.setString('accessToken', resultClass['tokens']);
         print(utf8.decode(response.bodyBytes));
         fileUrl = ProfileModel.fromJson(resultClass);
       }else{
         print(resultClass);
 
-        UtilsVariables.errorText="Email or password invalid";
+        UtilsVariables.errorText= "Email or password invalid";
 
       }
     } catch (e) {
