@@ -36,7 +36,11 @@ class _ImageEditScreenState extends State<ImageEditScreen> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 18, right: 18),
                       child: Row(
-                        children: [Image.asset("assets/selected_radio_button_icon.png", width: 15), SizedBox(width: 10), Text("Enhance Photo")],
+                        children: [
+                          Image.asset("assets/selected_radio_button_icon.png", width: 15),
+                          SizedBox(width: 10),
+                          Text("Enhance Photo")
+                        ],
                       ),
                     ),
                   ),
@@ -80,7 +84,7 @@ class _ImageEditScreenState extends State<ImageEditScreen> {
                       ),
                       color: Color(0xFF104CC0),
                       child: InkWell(
-                        onTap: () => {showCustomDialog(context)},
+                        onTap: () => {_dialogBuilder(context)},
                         child: Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 24, right: 24),
                           child: Row(
@@ -138,86 +142,38 @@ class _ImageEditScreenState extends State<ImageEditScreen> {
       ),
     );
   }
-}
 
-void showCustomDialog(BuildContext context) {
-  showGeneralDialog(
-    context: context,
-    barrierLabel: "Barrier",
-    barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.5),
-    transitionDuration: Duration(milliseconds: 700),
-    pageBuilder: (_, __, ___) {
-      return Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          color: Colors.white,
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      "Info about enhancer",
-                      style: TextStyle(fontSize: 20, color: Color(0xFF000080)),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Image.asset(
-                      "assets/close.png",
-                      width: 25,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
+                children: [Text("Info about enhancer"), Icon(Icons.cancel_outlined)],
               ),
-              SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(children: [
-                  Image.asset("assets/one_click_enhance.png", width: 28),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Wrap(
-                      direction: Axis.vertical,
-                      children: [
-                        Text(
-                          "One- Click Enhance ", style: TextStyle( fontSize: 12, color: Color(0xFF000080)),
-                        ),
-                        RichText(
-                           text: TextSpan(text: "With only one click to enhance your image and make images higher quality without any complex skills.",
-                           style: TextStyle( fontSize: 10, color: Color(0xFF000080))),
-                        ),
-                      ],
-                    )
+              Row(
+                children: [
+                  Icon(Icons.cancel_outlined),
+                  Column(
+                    children: [
+                      Text("One- Click Enhance "),
+                      Container(
+                        width: 300,
+                        child: Text(
+                            "With only one click to enhance your image and make images higher quality without any complex skills.",maxLines: 3,),
+                      ),
+                    ],
                   )
-                ]),
+                ],
               )
             ],
           ),
-        ),
-      );
-    },
-    transitionBuilder: (_, anim, __, child) {
-      Tween<Offset> tween;
-      if (anim.status == AnimationStatus.reverse) {
-        tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
-      } else {
-        tween = Tween(begin: Offset(1, 0), end: Offset.zero);
-      }
-
-      return SlideTransition(
-        position: tween.animate(anim),
-        child: FadeTransition(
-          opacity: anim,
-          child: child,
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }
