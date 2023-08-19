@@ -27,112 +27,115 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            // CircleAvatar(
-            //   radius: 32,
-            //   backgroundColor: Colors.white60,
-            //
-            //   child: Padding(
-            //
-            //     padding: const EdgeInsets.all(2), // Border radius
-            //     child: ClipOval(child: Image.asset("assets/cloud.png")),
-            //   ),
-            // ),
-            CircleAvatar(
-              radius: 24,
-              backgroundColor: Colors.black,
-              child: Padding(
-                padding: const EdgeInsets.all(2), // Border radius
-                child: ClipOval(child: Image.asset("assets/user_photo.png")),
+    return Container(
+      // color: Colors.white,
+      child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              // CircleAvatar(
+              //   radius: 32,
+              //   backgroundColor: Colors.white60,
+              //
+              //   child: Padding(
+              //
+              //     padding: const EdgeInsets.all(2), // Border radius
+              //     child: ClipOval(child: Image.asset("assets/cloud.png")),
+              //   ),
+              // ),
+              CircleAvatar(
+                radius: 24,
+                backgroundColor: Colors.black,
+                child: Padding(
+                  padding: const EdgeInsets.all(2), // Border radius
+                  child: ClipOval(child: Image.asset("assets/user_photo.png")),
+                ),
               ),
-            ),
-            SizedBox(width: 5,),
-            DropdownButton(
-              value: "${widget.titleDropDown ?? ''}",
-              icon: const Icon(Icons.keyboard_arrow_down),
-              items: items.map((String items) {
-                return DropdownMenuItem(
-                  value: items,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(width: 10,),
-                      Text(items, style: TextStyle(color: items == "Log out"
-                          ? Colors.red
-                          : Colors.indigo),),
-                      SizedBox(width: 5,),
-                      items == "Log out"
-                          ?
-                      Container(
-                          width: 30,
-                          child: Icon(Icons.login, color: Colors.red,))
-                          : Container(width: 0, height: 0,)
-                    ],
-                  ),
-                );
-              }).toList(),
+              SizedBox(width: 5,),
+              DropdownButton(
+                value: "${widget.titleDropDown ?? ''}",
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: items.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(width: 10,),
+                        Text(items, style: TextStyle(color: items == "Log out"
+                            ? Colors.red
+                            : Colors.indigo),),
+                        SizedBox(width: 5,),
+                        items == "Log out"
+                            ?
+                        Container(
+                            width: 30,
+                            child: Icon(Icons.login, color: Colors.red,))
+                            : Container(width: 0, height: 0,)
+                      ],
+                    ),
+                  );
+                }).toList(),
 
-              onChanged: (String? newValue) {
-                setState(() {
-                  print(widget.titleDropDown);
-                  widget.titleDropDown = newValue!;
-                  if (widget.titleDropDown == "Name") {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MainPage(selectedIndex: 0)),
-                    );
-                  }
-                  if (widget.titleDropDown == "Profile") {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Profile()),
-                    );
-                  }
-                  if (widget.titleDropDown == "Log out") {
-                    Navigator.pushReplacement(
+                onChanged: (String? newValue) {
+                  setState(() {
+                    print(widget.titleDropDown);
+                    widget.titleDropDown = newValue!;
+                    if (widget.titleDropDown == "Name") {
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => LoginScreen()));
-                    setState(() async {
-                      final SharedPreferences prefs = await SharedPreferences
-                          .getInstance();
-                      prefs.clear();
-                    });
-                  }
-                });
-              },
-            ),
-
-          ],
-        ),
-        Row(
-          children: [
-            Image.asset('assets/star.png'),
-            SizedBox(
-              width: 15,
-            ),
-            Image.asset("assets/globus.png"),
-            SizedBox(
-              width: 15,
-            ),
-            InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => NotificationsDetailsScreen()));
+                            builder: (context) => MainPage(selectedIndex: 0)),
+                      );
+                    }
+                    if (widget.titleDropDown == "Profile") {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Profile()),
+                      );
+                    }
+                    if (widget.titleDropDown == "Log out") {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => LoginScreen()));
+                      setState(() async {
+                        final SharedPreferences prefs = await SharedPreferences
+                            .getInstance();
+                        prefs.clear();
+                      });
+                    }
+                  });
                 },
-                child: Image.asset("assets/Bell.png")),
-            SizedBox(
-              width: 10,
-            )
-          ],
-        )
-      ],
+              ),
+
+            ],
+          ),
+          Row(
+            children: [
+              Image.asset('assets/star.png'),
+              SizedBox(
+                width: 15,
+              ),
+              Image.asset("assets/globus.png"),
+              SizedBox(
+                width: 15,
+              ),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => NotificationsDetailsScreen()));
+                  },
+                  child: Image.asset("assets/Bell.png")),
+              SizedBox(
+                width: 10,
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
