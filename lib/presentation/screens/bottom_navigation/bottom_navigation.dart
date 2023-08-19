@@ -14,10 +14,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final List<Map<String, dynamic>> pages = [
+    {'pageName': ImageEditScreen(), 'title': 'Image Editing'},
     {'pageName': GalleryScreen(), 'title': 'Family tree'},
     {'pageName': FamilyTree(), 'title': 'Gnexus Cloud'},
     {'pageName': GalleryScreen(), 'title': 'Gallery'},
-    {'pageName': ImageEditScreen(), 'title': 'Image Editingd'},
     {'pageName': ConnectionScreen(), 'title': 'Connection'},
 
   ];
