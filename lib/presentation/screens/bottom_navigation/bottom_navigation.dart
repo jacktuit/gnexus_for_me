@@ -17,7 +17,7 @@ class _MainPageState extends State<MainPage> {
     {'pageName': GalleryScreen(), 'title': 'Family tree'},
     {'pageName': FamilyTree(), 'title': 'Gnexus Cloud'},
     {'pageName': GalleryScreen(), 'title': 'Gallery'},
-    {'pageName': ImageEditScreen(), 'title': 'Image Editingd'},
+    {'pageName': ImageEditScreen(), 'title': 'Image Editing'},
     {'pageName': ConnectionScreen(), 'title': 'Connection'},
 
   ];
