@@ -49,8 +49,9 @@ class SignUpRepository {
       print(statusCode);
       StatusCode.successStatusCode = statusCode;
       final resultClass = json.decode(utf8.decode(response.bodyBytes));
-      if (statusCode == 201) {
-        // signInfo = SignUpModel.fromJson(resultClass);
+      debugPrint(resultClass);
+      if (statusCode == 201 || statusCode == 200) {
+         signInfo = SignUpModel.fromJson(resultClass);
         // Navigator.of(context).popUntil((route) => route.isFirst);
         // Navigator.pushReplacement(
         //     context, MaterialPageRoute(builder: (context) => VerificationScreen(routName: 'sign up',)));

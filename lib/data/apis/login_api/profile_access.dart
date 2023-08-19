@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:gnexus/data/models/login_model/profile_access_model.dart';
 import 'package:http/http.dart' as http;
 import '../../../utils/status_code/status_code.dart';
@@ -12,8 +13,7 @@ class ProfileAccessRepository {
   static ProfileAccessRepository getInstance() {
     return _singleton;
   }
-  Future<ProfileAccess> sendToken(
-  ) async {
+  Future<dynamic> sendToken() async {
     ProfileAccess? fileUrl;
     try {
       final requestUrl = Uri.parse("https://api.gnexus.uz/api/profile/");
@@ -26,6 +26,7 @@ class ProfileAccessRepository {
       );
       final int statusCode = response.statusCode;
 
+
       print(statusCode);
       StatusCode.successStatusCode = statusCode;
       if (statusCode == 200) {
@@ -33,12 +34,13 @@ class ProfileAccessRepository {
         print(resultClass);
         print(utf8.decode(response.bodyBytes));
         fileUrl = ProfileAccess.fromJson(resultClass);
+        return statusCode;
       }
     } catch (e) {
       print("e");
       print(e);
     }
+    return statusCodes;
 
-    return fileUrl ?? ProfileAccess();
   }
 }

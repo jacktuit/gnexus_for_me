@@ -56,9 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
             await prefs.setString('accessToken', state.profileModelInfo.tokens?.access ?? "");
             bool? navigate = prefs.getBool("confirmEmail");
             Navigator.of(context).popUntil((route) => route.isFirst);
-            (navigate ?? false)
-                ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainPage(selectedIndex: 0)))
-                : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VerificationScreen(routName: 'enterFirst',)));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainPage(selectedIndex: 0)));
+            // (navigate ?? false)
+            //     ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainPage(selectedIndex: 0)))
+            //     : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => VerificationScreen(routName: 'enterFirst',)));
             UtilsVariables.errorText=null;
           }
         },
