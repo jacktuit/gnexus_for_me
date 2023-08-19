@@ -27,20 +27,17 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigator() async {
     await Future.delayed(Duration.zero);
     {
-      ProfileAccessRepository.getInstance().sendToken();
+   final statusCode = await ProfileAccessRepository.getInstance().sendToken();
       Future.delayed(Duration(seconds: 2)).then((value) {
         Navigator.of(context).popUntil((route) => route.isFirst);
-        if (StatusCode.successStatusCode == 401) {
-          Navigator.pushReplacementNamed(context,MainRoutes.login);
-        } else {
-
+        if (statusCode == 200) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      MainPage(
-                          selectedIndex: 0
-                      )));
+                      MainPage(selectedIndex: 0)));
+        } else {
+          Navigator.pushReplacementNamed(context, MainRoutes.login);
         }
       });
     }
