@@ -5,6 +5,4 @@ class MainRoutes {
   static const String register = "sign";
   static const String forgotPassword = "forgotPassword";
   static const String splashScreen = "splashScreen";
-
-
 }

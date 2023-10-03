@@ -15,11 +15,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final List<Map<String, dynamic>> pages = [
     {'pageName': FamilyTree(), 'title': 'Gnexus Cloud'},
-    {'pageName': GalleryScreen(), 'title': 'Family tree'},
+    {'pageName': GnexCloudScreen(), 'title': 'Family tree'},
     {'pageName': GalleryScreen(), 'title': 'Gallery'},
     {'pageName': ImageEditScreen(), 'title': 'Image Editing'},
 
-    {'pageName': ConnectionScreen(), 'title': 'Connection'},
+    // {'pageName': ConnectionScreen(), 'title': 'Connection'},
 
   ];
 
@@ -58,9 +58,9 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/editing.png')),
                 label: "Image Editing"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_add_alt),
-                label: "Connection")
+            // BottomNavigationBarItem(
+            //     icon: Icon(Icons.person_add_alt),
+            //     label: "Connection")
           ],
         ),
       ),
